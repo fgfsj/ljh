@@ -2,6 +2,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #include "ds.h"
 #include "parking.h"
 #include "fee.h"
@@ -9,8 +12,17 @@
 #include "ui.h"
 #include "file_io.h"
 
+static void configure_console_encoding(void) {
+#ifdef _WIN32
+    SetConsoleOutputCP(936);
+    SetConsoleCP(936);
+#endif
+}
+
 int main() {
     ParkingSystem ps;
+
+    configure_console_encoding();
 
     /* 1. Initialize system */
     printf("正在初始化停车场系统...\n");
